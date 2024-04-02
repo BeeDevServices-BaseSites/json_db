@@ -1,13 +1,10 @@
 from rest_framework import serializers
 
-from base.models.items import Item
 from base.models.careers import Career
 from base.models.course_cards import CourseCard
+from base.models.employees import Employee
+from base.models.honeycombs import Honeycombs
 
-class ItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Item
-        fields = '__all__'
 
 class CareerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,4 +14,14 @@ class CareerSerializer(serializers.ModelSerializer):
 class CourseCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseCard
+        fields = '__all__'
+
+class EmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = '__all__'
+
+class HoneycombsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Honeycombs
         fields = '__all__'

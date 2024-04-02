@@ -1,15 +1,15 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
-from base.models.course_cards import CourseCard
-from ..serializers import CourseCardSerializer
+from base.models.honeycombs import Honeycombs
+from ..serializers import HoneycombsSerializer
 
 
 # CREATE
 @api_view(['POST'])
 def create(request):
     # Parse the request data with the serializer
-    serializer = CourseCardSerializer(data=request.data)
+    serializer = HoneycombsSerializer(data=request.data)
     # Check if the data is valid
     if serializer.is_valid():
         # Save the new object to the database
@@ -23,9 +23,9 @@ def create(request):
 @api_view(['GET'])
 def get_all(request):
     # Get all the course_card objs
-    course_cards = CourseCard.objects.all()
+    honeycombs = Honeycombs.objects.all()
     # Run the course_card objs throught the serializer
-    serializer = CourseCardSerializer(course_cards, many=True)
+    serializer = HoneycombsSerializer(honeycombs, many=True)
     # return the data on from the serialized response
     return Response(serializer.data)
 
@@ -33,13 +33,13 @@ def get_all(request):
 def get_one(request, id):
     try:
         # Get the course_card object with the specified ID
-        course_card = CourseCard.objects.get(id=id)
-    except CourseCard.DoesNotExist:
+        course_card = Honeycombs.objects.get(id=id)
+    except Honeycombs.DoesNotExist:
         # Handle the case where the object doesn't exist (e.g., return an error response)
-        return Response({"error": "CourseCard not found"}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"error": "Honeycombs not found"}, status=status.HTTP_404_NOT_FOUND)
 
     # Run the course_card object through the serializer
-    serializer = CourseCardSerializer(course_card)
+    serializer = HoneycombsSerializer(course_card)
     # Return the serialized data in the response
     return Response(serializer.data)
 
@@ -49,17 +49,17 @@ def get_one(request, id):
 def update_one(request, id):
     try:
         # Get the course_card object with the specified ID
-        course_card = CourseCard.objects.get(id=id)
+        course_card = Honeycombs.objects.get(id=id)
         for key in request.data:
             setattr(course_card, key, request.data[key])
 
         course_card.save()
-    except CourseCard.DoesNotExist:
+    except Honeycombs.DoesNotExist:
         # Handle the case where the object doesn't exist (e.g., return an error response)
-        return Response({"error": "CourseCard not found"}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"error": "Honeycombs not found"}, status=status.HTTP_404_NOT_FOUND)
 
     # Run the course_card object through the serializer
-    serializer = CourseCardSerializer(course_card)
+    serializer = HoneycombsSerializer(course_card)
     # Return the serialized data in the response
     return Response(serializer.data)
 
@@ -68,14 +68,14 @@ def update_one(request, id):
 def delete_one(request, id):
     try:
         # Get the course_card object with the specified ID
-        course_card = CourseCard.objects.get(id=id)
+        course_card = Honeycombs.objects.get(id=id)
         course_card.delete()
 
-    except CourseCard.DoesNotExist:
+    except Honeycombs.DoesNotExist:
         # Handle the case where the object doesn't exist (e.g., return an error response)
-        return Response({"error": "CourseCard not found"}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"error": "Honeycombs not found"}, status=status.HTTP_404_NOT_FOUND)
 
     # Run the course_card object through the serializer
-    serializer = CourseCardSerializer(course_card)
+    serializer = HoneycombsSerializer(course_card)
     # Return the serialized data in the response
     return Response(serializer.data)

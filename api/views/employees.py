@@ -1,15 +1,15 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
-from base.models.careers import Career
-from ..serializers import CareerSerializer
+from base.models.employees import Employee
+from ..serializers import EmployeeSerializer
 
 
 # CREATE
 @api_view(['POST'])
 def create(request):
     # Parse the request data with the serializer
-    serializer = CareerSerializer(data=request.data)
+    serializer = EmployeeSerializer(data=request.data)
     # Check if the data is valid
     if serializer.is_valid():
         # Save the new object to the database
@@ -22,24 +22,24 @@ def create(request):
 # READ
 @api_view(['GET'])
 def get_all(request):
-    # Get all the career objs
-    careers = Career.objects.all()
-    # Run the career objs throught the serializer
-    serializer = CareerSerializer(careers, many=True)
+    # Get all the course_card objs
+    employees = Employee.objects.all()
+    # Run the course_card objs throught the serializer
+    serializer = EmployeeSerializer(employees, many=True)
     # return the data on from the serialized response
     return Response(serializer.data)
 
 @api_view(['GET'])
 def get_one(request, id):
     try:
-        # Get the career object with the specified ID
-        career = Career.objects.get(id=id)
-    except Career.DoesNotExist:
+        # Get the course_card object with the specified ID
+        course_card = Employee.objects.get(id=id)
+    except Employee.DoesNotExist:
         # Handle the case where the object doesn't exist (e.g., return an error response)
-        return Response({"error": "Career not found"}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"error": "Employee not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    # Run the career object through the serializer
-    serializer = CareerSerializer(career)
+    # Run the course_card object through the serializer
+    serializer = EmployeeSerializer(course_card)
     # Return the serialized data in the response
     return Response(serializer.data)
 
@@ -48,18 +48,18 @@ def get_one(request, id):
 @api_view(['PATCH'])
 def update_one(request, id):
     try:
-        # Get the career object with the specified ID
-        career = Career.objects.get(id=id)
+        # Get the course_card object with the specified ID
+        course_card = Employee.objects.get(id=id)
         for key in request.data:
-            setattr(career, key, request.data[key])
+            setattr(course_card, key, request.data[key])
 
-        career.save()
-    except Career.DoesNotExist:
+        course_card.save()
+    except Employee.DoesNotExist:
         # Handle the case where the object doesn't exist (e.g., return an error response)
-        return Response({"error": "Career not found"}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"error": "Employee not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    # Run the career object through the serializer
-    serializer = CareerSerializer(career)
+    # Run the course_card object through the serializer
+    serializer = EmployeeSerializer(course_card)
     # Return the serialized data in the response
     return Response(serializer.data)
 
@@ -67,15 +67,15 @@ def update_one(request, id):
 @api_view(['DELETE'])
 def delete_one(request, id):
     try:
-        # Get the career object with the specified ID
-        career = Career.objects.get(id=id)
-        career.delete()
+        # Get the course_card object with the specified ID
+        course_card = Employee.objects.get(id=id)
+        course_card.delete()
 
-    except Career.DoesNotExist:
+    except Employee.DoesNotExist:
         # Handle the case where the object doesn't exist (e.g., return an error response)
-        return Response({"error": "Career not found"}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"error": "Employee not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    # Run the career object through the serializer
-    serializer = CareerSerializer(career)
+    # Run the course_card object through the serializer
+    serializer = EmployeeSerializer(course_card)
     # Return the serialized data in the response
     return Response(serializer.data)

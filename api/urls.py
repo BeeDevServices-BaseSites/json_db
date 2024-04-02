@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import item, careers, course_card
+from .views import careers, course_card, employees, honeycombs
 
 urlpatterns = [
     # Careers
@@ -17,16 +17,16 @@ urlpatterns = [
     path('course_card/<int:id>/delete', course_card.delete_one),
 
     # # Employees
-    # path('employees/create', employees.create),
-    # path('employees', employees.get_all),
-    # path('employees/<int:id>', employees.get_one),
-    # path('employees/<int:id>/update', employees.update_one),
-    # path('employees/<int:id>/delete', employees.delete_one),
+    path('employees/create', employees.create),
+    path('employees', employees.get_all),
+    path('employees/<int:id>', employees.get_one),
+    path('employees/<int:id>/update', employees.update_one),
+    path('employees/<int:id>/delete', employees.delete_one),
 
     # # Honeycombs
-    # path('honeycombs/create', honeycombs.create),
-    # path('honeycombs', honeycombs.get_all),
-    # path('honeycombs/<int:id>', honeycombs.get_one),
-    # path('honeycombs/<int:id>/update', honeycombs.update_one),
-    # path('honeycombs/<int:id>/delete', honeycombs.delete_one),
+    path('honeycombs/create', honeycombs.create),
+    path('honeycombs', honeycombs.get_all),
+    path('honeycombs/<int:id>', honeycombs.get_one),
+    path('honeycombs/<int:id>/update', honeycombs.update_one),
+    path('honeycombs/<int:id>/delete', honeycombs.delete_one),
 ]
